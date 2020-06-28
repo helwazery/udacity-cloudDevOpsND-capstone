@@ -1,0 +1,7 @@
+---
+- hosts: localhost
+  become: true
+  tasks:
+    - name: update kubeconfig
+      command: 
+            aws eks --region eu-central-1 update-kubeconfig --name capstone
