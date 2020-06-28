@@ -1,5 +1,6 @@
 pipeline {
     agent any
+    stages {
     stage(' Build Kubernetes Cluster'){
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
