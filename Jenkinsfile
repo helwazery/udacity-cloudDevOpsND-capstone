@@ -30,7 +30,7 @@ pipeline {
 					sh '''
 						docker build -t capstone .
                                                 docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-                                                docker push halaelwazery/capstone
+                                                docker push capstone
 					'''
 				}
 			}
