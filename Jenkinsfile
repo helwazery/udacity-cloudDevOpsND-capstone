@@ -28,9 +28,9 @@ pipeline {
 	    steps {
 		withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'docker-capstone', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]){
 					sh '''
-						docker build -t capstone .
+						docker build -t halaelwazery/capstone .
                                                 docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-                                                docker push capstone
+                                                docker push halaelwazery/capstone
 					'''
 				}
 			}
