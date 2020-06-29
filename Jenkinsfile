@@ -24,11 +24,13 @@ pipeline {
         }
 
      
-     stage('Build Docker Image') {
+     stage('Build and Push Docker Image') {
 	    steps {
 		withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'docker-capstone', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]){
 					sh '''
 						docker build -t capstone .
+                                                docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+                                                docker push $DOCKER_USERNAME/capstone
 					'''
 				}
 			}
