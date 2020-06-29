@@ -8,13 +8,13 @@ pipeline {
      }
 
 
-    stage(' Build Kubernetes Cluster'){
-            steps {
-                withAWS(region:'eu-central-1', credentials:'aws-capstone') {
-                    sh 'ansible-playbook create-k8-cluster.yml'
-                }
-            }
-        }
+  #  stage(' Build Kubernetes Cluster'){
+   #         steps {
+    #            withAWS(region:'eu-central-1', credentials:'aws-capstone') {
+     #               sh 'ansible-playbook create-k8-cluster.yml'
+      #          }
+      #      }
+      #  }
      stage(' Update Kubernetes Cluster config '){
             steps {
                 withAWS(region:'eu-central-1', credentials:'aws-capstone') {
