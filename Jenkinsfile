@@ -15,6 +15,13 @@ pipeline {
                 }
             }
         }
+     stage(' Update Kubernetes Cluster config '){
+            steps {
+                withAWS(region:'eu-central-1', credentials:'aws-capstone') {
+                    sh 'ansible-playbook update-k8-cluster.yml'
+                }
+            }
+        }
 
 }
 }
