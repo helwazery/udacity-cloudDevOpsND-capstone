@@ -10,7 +10,7 @@ pipeline {
 
     stage(' Build Kubernetes Cluster'){
             steps {
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                withAWS(region:'eu-central-1', credentials:'aws-capstone') {
                     sh 'ansible-playbook create-k8-cluster.yml'
                 }
             }
