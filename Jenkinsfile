@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-    stage ('Lint HTML page'){
+    stage ('Lint HTML page and Dockerfile'){
             steps {
                sh '''
                     tidy -q -e index.html
