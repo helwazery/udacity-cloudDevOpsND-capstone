@@ -3,7 +3,10 @@ pipeline {
     stages {
     stage ('Lint HTML page'){
             steps {
-               sh 'tidy -q -e index.html'
+               sh '''
+                    tidy -q -e index.html
+                    hadolint Dockerfile
+                  '''
         }
      }
 
@@ -68,6 +71,30 @@ pipeline {
 		  }
 		}
 
+     stage('redirect the traffic to  blue rollout') {
+            steps {
+                withAWS(region:'eu-central-1', credentials:'aws-capstone') {
+                    sh '''
+                                                kubectl apply -f ./blue-service.json
+                                        '''
+                   }
+                 }
+                }
+     stage('traffic is now in blue rollout, redirecting to green') {
+            steps {
+                input "Would you like to redirect the traffic to green rollout?"
+            }
+        }
+
+     stage('Redirect the traffic to  green rollout') {
+            steps {
+                withAWS(region:'eu-central-1', credentials:'aws-capstone') {
+                    sh '''
+                                                kubectl apply -f ./blue-green-service.json
+                                        '''
+                    }
+                  }
+                }
 
 }
 }
