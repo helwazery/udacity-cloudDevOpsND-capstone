@@ -32,8 +32,8 @@ pipeline {
                                                 docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
                                                 docker push halaelwazery/capstone
 					'''
-				}
-			}
+		   }
+		 }
 		}
      stage(' Set kubectl context/Cluster'){
             steps {
@@ -47,6 +47,26 @@ pipeline {
                 }
             }
         }
+
+     stage('Deploy blue rollout') {
+	    steps {
+		withAWS(region:'us-east-1', credentials:'ecr_credentials') {
+		    sh '''
+						kubectl apply -f ./blue-controller.json
+					'''
+		   }
+		 }
+		}
+
+     stage('Deploy green rollout') {
+	    steps {
+		withAWS(region:'us-east-1', credentials:'ecr_credentials') {
+		    sh '''
+						kubectl apply -f ./green-controller.json
+					'''
+		    }
+		  }
+		}
 
 
 }
