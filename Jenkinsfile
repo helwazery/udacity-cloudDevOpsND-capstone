@@ -50,7 +50,7 @@ pipeline {
 
      stage('Deploy blue rollout') {
 	    steps {
-		withAWS(region:'us-east-1', credentials:'ecr_credentials') {
+		withAWS(region:'eu-central-1', credentials:'aws-capstone') {
 		    sh '''
 						kubectl apply -f ./blue-controller.json
 					'''
@@ -60,7 +60,7 @@ pipeline {
 
      stage('Deploy green rollout') {
 	    steps {
-		withAWS(region:'us-east-1', credentials:'ecr_credentials') {
+		withAWS(region:'eu-central-1', credentials:'aws-capstone') {
 		    sh '''
 						kubectl apply -f ./green-controller.json
 					'''
